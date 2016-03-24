@@ -5,21 +5,10 @@ const router = require('./router');
 const HOST = '0.0.0.0';
 const PORT = 8081;
 
-function onEnd(pathname, response, postData) {
-  router.route(pathname, response, postData);
-}
-
 function onRequest(request, response) {
   const pathname = url.parse(request.url).pathname;
   console.log('Request received for ' + pathname);
-  var postData = '';
-  request.setEncoding('utf8');
-  request.addListener('data', function (chunk) {
-    postData += chunk;
-  });
-  request.addListener('end', function () {
-    onEnd(pathname, response, postData); 
-  });
+  router.route(pathname, response, request);
 }
 
 function startServing() {

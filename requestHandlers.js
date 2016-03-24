@@ -1,7 +1,8 @@
 const swig = require('swig');
-const querystring = require('querystring');
+const formidable = require('formidable');
+const util = require('util');
 
-function index(response, data) {
+function index(response) {
   const template = swig.compileFile('./templates/index.html');
   response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(template());
@@ -9,12 +10,15 @@ function index(response, data) {
 
 }
 
-function upload(response, data) {
+function upload(response, request) {
+  const form = new formidable.IncomingForm();
+  form.parse(request, onFormParse);
   response.writeHead(302, {'Location': '/'});
-  data = querystring.parse(data);
-  console.log(data.name);
-  console.log(data.text);
   response.end();
+}
+
+function onFormParse(error, fields, files) {
+  console.log(util.inspect({fields: fields, files: files}))
 }
 
 function status404(response) {

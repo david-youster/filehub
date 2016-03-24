@@ -7,10 +7,10 @@ handle['/home'] = requestHandlers.index;
 handle['/upload'] = requestHandlers.upload;
 handle[404] = requestHandlers.status404;
 
-function route(pathname, response, data) {
+function route(pathname, response, request) {
   console.log('Routing request for ' + pathname);
   if (typeof handle[pathname] === 'function') {
-    handle[pathname](response, data);
+    handle[pathname](response, request);
   } else {
     handle[404](response);
   }
