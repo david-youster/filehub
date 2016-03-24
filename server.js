@@ -1,13 +1,14 @@
 const http = require('http');
+const url = require('url');
+const router = require('./router');
 
 const HOST = '127.0.0.1';
 const PORT = 8081;
 
 const onRequest = function onRequest(request, response) {
-  console.log('Request received');
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.write('Hello from server!\n');
-  response.end();
+  var pathname = url.parse(request.url).pathname;
+  console.log('Request received for ' + pathname);
+  router.route(pathname, response);
 }
 
 const startServing = function startServing() {
