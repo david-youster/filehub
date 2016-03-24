@@ -15,7 +15,7 @@ const onRequest = function onRequest(request, response) {
   console.log('Request received for ' + pathname);
   var postData = '';
   request.setEncoding('utf8');
-  request.addListener('data', function onData(chunk) {
+  request.addListener('data', function (chunk) {
     postData += chunk;
   });
   request.addListener('end', function () {
