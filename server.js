@@ -1,13 +1,12 @@
 const http = require('http');
 const url = require('url');
 const router = require('./router');
-const parser = require('./parser');
 
 const HOST = '0.0.0.0';
 const PORT = 8081;
 
 const onEnd = function onEnd(pathname, response, postData) {
-  router.route(pathname, response, parser.parse(postData));
+  router.route(pathname, response, postData);
 }
 
 const onRequest = function onRequest(request, response) {

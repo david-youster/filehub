@@ -1,4 +1,5 @@
 const swig = require('swig');
+const querystring = require('querystring');
 
 const index = function index(response, data) {
   const template = swig.compileFile('./templates/index.html');
@@ -10,6 +11,7 @@ const index = function index(response, data) {
 
 const upload = function upload(response, data) {
   response.writeHead(302, {'Location': '/'});
+  data = querystring.parse(data);
   console.log(data.name);
   console.log(data.text);
   response.end();
