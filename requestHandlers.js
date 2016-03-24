@@ -1,6 +1,6 @@
 const swig = require('swig');
 
-const index = function index(response) {
+const index = function index(response, data) {
   const template = swig.compileFile('./templates/index.html');
   response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(template());
@@ -8,9 +8,9 @@ const index = function index(response) {
 
 }
 
-const upload = function upload(response) {
+const upload = function upload(response, data) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.write('The upload page');
+  response.write(data);
   response.end();
 }
 
