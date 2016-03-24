@@ -1,24 +1,25 @@
 const http = require('http');
 const url = require('url');
 const router = require('./router');
+const parser = require('./parser');
 
 const HOST = '127.0.0.1';
 const PORT = 8081;
 
-const onEnd = function onEnd(pathname, response, data) {
-  router.route(pathname, response, data);
+const onEnd = function onEnd(pathname, response, postData) {
+  router.route(pathname, response, parser.parse(postData));
 }
 
 const onRequest = function onRequest(request, response) {
   const pathname = url.parse(request.url).pathname;
   console.log('Request received for ' + pathname);
-  var data = '';
+  var postData = '';
   request.setEncoding('utf8');
   request.addListener('data', function onData(chunk) {
-    data += chunk;
+    postData += chunk;
   });
   request.addListener('end', function () {
-    onEnd(pathname, response, data); 
+    onEnd(pathname, response, postData); 
   });
 }
 

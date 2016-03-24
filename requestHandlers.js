@@ -10,7 +10,8 @@ const index = function index(response, data) {
 
 const upload = function upload(response, data) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.write(data);
+  response.write(data.name.toString() + '\n');
+  response.write(data.text.toString() + '\n');
   response.end();
 }
 

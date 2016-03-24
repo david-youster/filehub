@@ -6,8 +6,10 @@
   </head>
   <body>
     <form action="/upload" method="post">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
       <label for="text">Text to send</label>
-      <input type="text" required id="text" name="text">
+      <input type="text" id="text" name="text" required>
       <input type="submit" value="Submit">
     </form>
   </body>
