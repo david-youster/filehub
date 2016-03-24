@@ -1,7 +1,7 @@
 const swig = require('swig');
 const querystring = require('querystring');
 
-const index = function index(response, data) {
+function index(response, data) {
   const template = swig.compileFile('./templates/index.html');
   response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(template());
@@ -9,7 +9,7 @@ const index = function index(response, data) {
 
 }
 
-const upload = function upload(response, data) {
+function upload(response, data) {
   response.writeHead(302, {'Location': '/'});
   data = querystring.parse(data);
   console.log(data.name);
@@ -17,7 +17,7 @@ const upload = function upload(response, data) {
   response.end();
 }
 
-const status404 = function status404(response) {
+function status404(response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.write('404 Not Found');
   response.end();
