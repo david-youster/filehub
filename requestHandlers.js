@@ -9,9 +9,9 @@ const index = function index(response, data) {
 }
 
 const upload = function upload(response, data) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.write(data.name.toString() + '\n');
-  response.write(data.text.toString() + '\n');
+  response.writeHead(302, {'Location': '/'});
+  console.log(data.name);
+  console.log(data.text);
   response.end();
 }
 
