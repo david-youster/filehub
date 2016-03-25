@@ -8,7 +8,6 @@ handle['/upload'] = requestHandlers.upload;
 handle[404] = requestHandlers.status404;
 
 function route(pathname, response, request) {
-  console.log('Routing request for ' + pathname);
   if (typeof handle[pathname] === 'function') {
     handle[pathname](response, request);
   } else {

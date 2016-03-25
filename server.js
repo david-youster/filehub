@@ -7,7 +7,7 @@ const PORT = 8081;
 
 function onRequest(request, response) {
   const pathname = url.parse(request.url).pathname;
-  console.log('Request received for ' + pathname);
+  console.log(request.connection.remoteAddress + ' requested ' + pathname);
   router.route(pathname, response, request);
 }
 

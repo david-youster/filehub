@@ -11,7 +11,6 @@ function index(response) {
 }
 
 function upload(response, request) {
-  console.log('Handling form data...');
   const form = new formidable.IncomingForm();
   form.uploadDir = './uploads';
   form.parse(request);
