@@ -11,14 +11,12 @@ function index(response) {
 }
 
 function upload(response, request) {
+  console.log('Handling form data...');
   const form = new formidable.IncomingForm();
-  form.parse(request, onFormParse);
+  form.uploadDir = './uploads';
+  form.parse(request);
   response.writeHead(302, {'Location': '/'});
   response.end();
-}
-
-function onFormParse(error, fields, files) {
-  console.log(util.inspect({fields: fields, files: files}))
 }
 
 function status404(response) {
