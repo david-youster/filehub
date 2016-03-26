@@ -7,6 +7,7 @@ const client = mongodb.MongoClient;
 function addUpload(data) {
   client.connect(connectionURL, function (error, db) {
     db.collection('uploads').insert(data);
+    db.close();
   }); 
 }
 
