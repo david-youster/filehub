@@ -1,3 +1,6 @@
 <section>
+  {% for upload in uploads %}
+    <p>{{ upload.id }}:{{ upload.name }}:{{ upload.path }}</p>
+  {% endfor %}
   <p>No content to display.</p>
 </section>
