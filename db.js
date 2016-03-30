@@ -46,7 +46,6 @@ function getFile(response, fileID, sendFileCallback) {
   });
 }
 
-module.exports.saveUploadData = saveUploadData
-;
+module.exports.saveUploadData = saveUploadData;
 module.exports.getUploads = getUploads;
 module.exports.getFile = getFile;
