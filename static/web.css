@@ -1,0 +1,35 @@
+body {
+  background:#DDE2ED;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+#wrapper {
+  border-radius: 4px;
+  background:#B5BFD5;
+  width: 80%;
+  padding-top:.5em;
+  padding-right:2em;
+  padding-bottom:1em;
+  padding-left:1em;
+}
+
+#upload-form {
+  border-radius:4px;
+  background: #EEEEFF;
+  padding: 1em;
+  width: 60%;
+  border:1px solid black;
+  margin-bottom:0.5em;
+}
+
+#display {
+  border-radius:4px;
+  background: #EEEEFF;
+  padding: 1em;
+  width: 60%;
+  border:1px solid black;
+}
+
+ul {
+  list-style: none;
+}

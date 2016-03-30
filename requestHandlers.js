@@ -48,6 +48,11 @@ function sendFile(response, file) {
   fs.createReadStream(file.path).pipe(response);
 }
 
+function serveStaticFile(response, request, query) {
+  console.log('Serving static file ' + query.file  + '...');
+  fs.createReadStream('./static/' + query.file).pipe(response);
+}
+
 function status404(response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.write('404 Not Found');
@@ -57,4 +62,5 @@ function status404(response) {
 module.exports.index = index;
 module.exports.upload = upload;
 module.exports.getFile = getFile;
+module.exports.serveStaticFile = serveStaticFile;
 module.exports.status404 = status404;
