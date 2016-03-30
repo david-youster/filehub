@@ -1,6 +1,6 @@
 <section>
   {% for upload in uploads %}
-    <p>{{ upload.id }}:{{ upload.name }}:{{ upload.path }}</p>
+    <p><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></p>
   {% endfor %}
   <p>No content to display.</p>
 </section>

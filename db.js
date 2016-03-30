@@ -1,12 +1,12 @@
-const mongodb = require('mongodb');
+const mongo = require('mongodb');
 
 const connectionURL = "mongodb://localhost:27017/localex";
 
-const client = mongodb.MongoClient;
+const client = mongo.MongoClient;
 
 function saveUploadData(uploadData) {
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').insert(data);
+    db.collection('uploads').insert(uploadData);
     db.close();
   }); 
 }
@@ -29,5 +29,24 @@ function extractUploadData(doc) {
   };
 }
 
-module.exports.saveUploadData = saveUploadData;
+function getFile(response, fileID, sendFileCallback) {
+  client.connect(connectionURL, function (error, db) {
+    db.collection('uploads').findOne({_id: new mongo.ObjectID(fileID)}, function (error, doc) {
+      if (error) {
+        response.writeHead(404, {'Content-Type': 'text/plain'});
+        response.end('404 File not found.');
+      }
+      if (doc) {
+        console.log('Found: ' + doc._id);
+        sendFileCallback(response, doc);
+      } else {
+        console.log('Failed retrieving record with id ' + fileID);
+      }
+    });
+  });
+}
+
+module.exports.saveUploadData = saveUploadData
+;
 module.exports.getUploads = getUploads;
+module.exports.getFile = getFile;

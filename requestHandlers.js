@@ -1,6 +1,7 @@
 const swig = require('swig');
 const formidable = require('formidable');
 const util = require('util');
+const fs = require('fs');
 const db = require('./db');
 
 function index(response) {
@@ -38,6 +39,19 @@ function extractFileData(file) {
   };
 }
 
+function getFile(response, request, query) {
+  db.getFile(response, query.id, sendFile);
+}
+
+function sendFile(response, file) {
+  fs.stat(file.path, function (error, stats) {
+    console.log('Sending file ' + file.path);
+    response.writeHead({'Content-Type': 'application/octet-stream', 'Content-Length': stats.size});
+    fs.createReadStream(file.path).pipe(response);
+    response.end();
+  })
+}
+
 function status404(response) {
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.write('404 Not Found');
@@ -46,4 +60,5 @@ function status404(response) {
 
 module.exports.index = index;
 module.exports.upload = upload;
+module.exports.getFile = getFile;
 module.exports.status404 = status404;

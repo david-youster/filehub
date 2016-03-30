@@ -8,8 +8,9 @@ const PORT = 8081;
 
 function onRequest(request, response) {
   const pathname = url.parse(request.url).pathname;
+  const query = url.parse(request.url, true).query;
   console.log(request.connection.remoteAddress + ' requested ' + pathname);
-  router.route(pathname, response, request);
+  router.route(pathname, query, response, request);
 }
 
 function startServing() {
