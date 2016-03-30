@@ -44,12 +44,8 @@ function getFile(response, request, query) {
 }
 
 function sendFile(response, file) {
-  fs.stat(file.path, function (error, stats) {
-    console.log('Sending file ' + file.path);
-    response.writeHead({'Content-Type': 'application/octet-stream', 'Content-Length': stats.size});
-    fs.createReadStream(file.path).pipe(response);
-    response.end();
-  })
+  console.log('Sending file ' + file.path);
+  fs.createReadStream(file.path).pipe(response);
 }
 
 function status404(response) {
