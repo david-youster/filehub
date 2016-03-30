@@ -1,6 +1,11 @@
-<section>
-  {% for upload in uploads %}
-    <p><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></p>
-  {% endfor %}
-  <p>No content to display.</p>
+<section id="display">
+  {% if uploads %}
+    <ul>
+      {% for upload in uploads %}
+        <li><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No content to display.</p>
+  {% endif %}
 </section>
