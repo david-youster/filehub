@@ -1,15 +1,17 @@
 <section id="upload-form">
   <form action="/upload" method="post" enctype="multipart/form-data">
+    <fieldset>
+      <div class="form-block">
+        <label for="file">Upload</label>
+        <input type="file" id="file" name="file">
+      </div>
+      <div class="form-block">
+        <label for="comment">Comment</label>
+        <input type="text" id="comment" name="comment">
+      </div>
+      </fieldset>
     <div class="form-block">
-      <label for="file">Upload</label>
-      <input type="file" id="file" name="file">
-    </div>
-    <div class="form-block">
-      <label for="comment">Comment</label>
-      <input type="text" id="comment" name="comment">
-    </div>
-    <div class="form-block">
-      <input type="submit" value="Upload">
+      <input type="submit" value="Submit">
     </div>
   </form>
 </section>
