@@ -1,10 +1,14 @@
 <section id="display">
   {% if uploads %}
-    <ul>
+    <table>
       {% for upload in uploads %}
-        <li><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></li>
+        <tr>
+          <td><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></td>
+          <td>{{ upload.comment }}</td>
+          <td>Delete</td>
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <p>No content to display.</p>
   {% endif %}

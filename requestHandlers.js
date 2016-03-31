@@ -29,6 +29,8 @@ function readUploadData(error, fields, files) {
     return;
   }
   const data = extractFileData(files.file);
+  console.log(util.inspect(fields));
+  data.comment = fields['comment'];
   db.saveUploadData(data);
 }
 
