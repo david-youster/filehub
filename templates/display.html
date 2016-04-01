@@ -4,7 +4,7 @@
       {% for upload in uploads %}
         <tr>
           <td><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></td>
-          <td>Delete</td>
+          <td><a href="/d?id={{ upload.id }}">Delete</a></td>
         </tr>
       {% endfor %}
     </table>

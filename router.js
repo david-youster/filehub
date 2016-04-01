@@ -7,6 +7,7 @@ handle['/home'] = requestHandlers.index;
 handle['/upload'] = requestHandlers.upload;
 handle['/f'] = requestHandlers.getFile;
 handle['/s'] = requestHandlers.serveStaticFile;
+handle['/d'] = requestHandlers.deleteFile;
 handle[404] = requestHandlers.status404;
 
 function route(pathname, query, response, request) {

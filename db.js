@@ -29,7 +29,7 @@ function extractUploadData(doc) {
   };
 }
 
-function getFile(response, fileID, sendFileCallback) {
+function getFile(response, fileID, onFileCallback) {
   client.connect(connectionURL, function (error, db) {
     db.collection('uploads').findOne({_id: new mongo.ObjectID(fileID)}, function (error, doc) {
       if (error) {
@@ -38,7 +38,7 @@ function getFile(response, fileID, sendFileCallback) {
       }
       if (doc) {
         console.log('Found: ' + doc._id);
-        sendFileCallback(response, doc);
+        onFileCallback(response, doc);
       } else {
         console.log('Failed retrieving record with id ' + fileID);
       }
@@ -46,6 +46,23 @@ function getFile(response, fileID, sendFileCallback) {
   });
 }
 
+function deleteFile(response, fileID, onDeleteFile) {
+  const mongoID = new mongo.ObjectID(fileID);
+  client.connect(connectionURL, function (error, db) {
+    db.collection('uploads').findOne({_id: mongoID}, function (error, doc) {
+      if (doc) {
+        onDeleteFile(response, doc.path);
+      }
+    });
+  });
+  client.connect(connectionURL, function (error, db) {
+    db.collection('uploads').deleteOne({_id: mongoID}, function(e, r) {
+      console.log('Deleting Mongo record for file ' + fileID);
+    });
+  });
+}
+
 module.exports.saveUploadData = saveUploadData;
 module.exports.getUploads = getUploads;
 module.exports.getFile = getFile;
+module.exports.deleteFile = deleteFile;

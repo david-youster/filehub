@@ -49,6 +49,17 @@ function sendFile(response, file) {
   fs.createReadStream(file.path).pipe(response);
 }
 
+function deleteFile(response, request, query) {
+  db.deleteFile(response, query.id, onDeleteFile);
+}
+
+function onDeleteFile(response, path) {
+  console.log('Deleting file ' + path + ' from filesystem...');
+  fs.unlink(path, function (file) {});
+  response.writeHead(302, {'Location': '/'});
+  response.end();
+}
+
 function serveStaticFile(response, request, query) {
   console.log('Serving static file ' + query.file  + '...');
   fs.createReadStream('./static/' + query.file).pipe(response);
@@ -63,5 +74,6 @@ function status404(response) {
 module.exports.index = index;
 module.exports.upload = upload;
 module.exports.getFile = getFile;
+module.exports.deleteFile = deleteFile;
 module.exports.serveStaticFile = serveStaticFile;
 module.exports.status404 = status404;
