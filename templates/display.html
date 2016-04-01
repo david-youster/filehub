@@ -4,7 +4,6 @@
       {% for upload in uploads %}
         <tr>
           <td><a href="/f?id={{ upload.id }}" download="{{ upload.name }}">{{ upload.name }}</a></td>
-          <td>{{ upload.comment }}</td>
           <td>Delete</td>
         </tr>
       {% endfor %}
