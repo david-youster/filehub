@@ -1,4 +1,8 @@
 # TODO
-- Responsiveness
-- Better button styling
-- Fix inconsistent callback naming
+- Custom file select input
+- Custom buttons
+- Documentation
+- Auto-update on upload/delete
+- Favicon
+- Tidy up callback naming
+- Flatten out callbacks as much as possible
