@@ -54,7 +54,7 @@ table {
   background: #DDE2ED;
   border-top:1px solid gray;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   text-align:center;
 }
 
@@ -69,4 +69,10 @@ td:last-child {
 
 a {
   text-decoration:none;
+}
+
+@media only screen and (max-width: 768px) {
+  #wrapper {
+    width: 85%;
+  }
 }
