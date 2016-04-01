@@ -21,7 +21,8 @@ body {
   padding-right: 1em;
   padding-bottom: 1em;
   padding-left:2em;
-  border:1px solid black;
+  border:1px solid gray;
+  margin: 0 auto;
   margin-bottom:0.5em;
 }
 
@@ -44,16 +45,22 @@ label {
   border-radius:4px;
   background: #EEEEFF;
   padding: 1em;
-  border:1px solid black;
+  border:1px solid gray;
 }
 
 table {
-  border: 1px solid black;
+  background: #DDE2ED;
+  border-top:1px solid gray;
   margin: 0 auto;
   width: 80%;
   text-align:center;
 }
 
 td {
-  border: 1px solid black;
+  border-right:1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+td:last-child {
+  border-right: none;
 }
