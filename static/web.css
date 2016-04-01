@@ -47,6 +47,13 @@ label {
   border:1px solid black;
 }
 
-ul {
-  list-style: none;
+table {
+  border: 1px solid black;
+  margin: 0 auto;
+  width: 80%;
+  text-align:center;
+}
+
+td {
+  border: 1px solid black;
 }
