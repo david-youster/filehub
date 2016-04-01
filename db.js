@@ -11,47 +11,54 @@ function saveUploadData(uploadData) {
   }); 
 }
 
-function getUploads(response, renderFunction) {
+function getUploads(response, onRender) {
   client.connect(connectionURL, function (error, db) {
     db.collection('uploads').find().toArray(function (error, uploads) {
-      uploads = uploads.map(extractUploadData);
-      renderFunction(response, {uploads: uploads});
-      db.close()
+      onUploadsArray(error, uploads, response, onRender);
     });
   });
 }
 
-function extractUploadData(doc) {
+function onUploadsArray(error, uploads, response, onRender) {
+  uploads = uploads.map(extractDataFromDBRecord);
+  onRender(response, {uploads: uploads});
+}
+
+function extractDataFromDBRecord(record) {
   return {
-    id: doc._id.toString(),
-    name: doc.name,
-    path: doc.path
+    id: record._id.toString(),
+    name: record.name,
+    path: record.path
   };
 }
 
-function getFile(response, fileID, onFileCallback) {
+function getFile(response, fileID, onFile) {
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').findOne({_id: new mongo.ObjectID(fileID)}, function (error, doc) {
-      if (error) {
-        response.writeHead(404, {'Content-Type': 'text/plain'});
-        response.end('404 File not found.');
-      }
-      if (doc) {
-        console.log('Found: ' + doc._id);
-        onFileCallback(response, doc);
-      } else {
-        console.log('Failed retrieving record with id ' + fileID);
-      }
+    const query = {_id: new mongo.ObjectID(fileID)};
+    db.collection('uploads').findOne(query, function (error, record) {
+      onFindUpload(error, record, response, onFile);
     });
+    db.close();
   });
+}
+
+function onFindUpload(error, record, response, onFile) {
+  if (error) {
+    response.writeHead(404, {'Content-Type': 'text/plain'});
+    response.end('404 File not found.');
+  }
+  if (record) {
+    console.log('Retrieving: ' + record._id);
+    onFile(response, record);
+  }
 }
 
 function deleteFile(response, fileID, onDeleteFile) {
   const mongoID = new mongo.ObjectID(fileID);
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').findOne({_id: mongoID}, function (error, doc) {
-      if (doc) {
-        onDeleteFile(response, doc.path);
+    db.collection('uploads').findOne({_id: mongoID}, function (error, record) {
+      if (record) {
+        onDeleteFile(response, record.path);
       }
     });
   });

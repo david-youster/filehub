@@ -6,16 +6,16 @@ const router = require('./router');
 const HOST = '0.0.0.0';
 const PORT = 8081;
 
+function startServing() {
+  http.createServer(onRequest).listen(PORT, HOST);
+  console.log('Server listening on ' + getNetworkIP() + ':' + PORT);
+}
+
 function onRequest(request, response) {
   const pathname = url.parse(request.url).pathname;
   const query = url.parse(request.url, true).query;
   console.log(request.connection.remoteAddress + ' requested ' + pathname);
   router.route(pathname, query, response, request);
-}
-
-function startServing() {
-  http.createServer(onRequest).listen(PORT, HOST);
-  console.log('Server listening on ' + getNetworkIP() + ':' + PORT);
 }
 
 function getNetworkIP() {

@@ -5,10 +5,10 @@ const fs = require('fs');
 const db = require('./db');
 
 function index(response) {
-  db.getUploads(response, renderIndexPage);
+  db.getUploads(response, onIndexPageRequested);
 }
 
-function renderIndexPage(response, templateLocals) {
+function onIndexPageRequested(response, templateLocals) {
   const template = swig.compileFile('./templates/index.html');
   response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(template(templateLocals));
@@ -18,22 +18,22 @@ function renderIndexPage(response, templateLocals) {
 function upload(response, request) {
   const form = new formidable.IncomingForm();
   form.uploadDir = './uploads';
-  form.parse(request, readUploadData);
+  form.parse(request, onUpload);
   response.writeHead(302, {'Location': '/'});
   response.end();
 }
 
-function readUploadData(error, fields, files) {
+function onUpload(error, fields, files) {
   if (error) {
     console.error(error);
     return;
   }
-  const data = extractFileData(files.file);
+  const data = extractFileDataForDB(files.file);
   console.log(util.inspect(fields));
   db.saveUploadData(data);
 }
 
-function extractFileData(file) {
+function extractFileDataForDB(file) {
   return {
     name: file.name,
     path: file.path
@@ -41,10 +41,10 @@ function extractFileData(file) {
 }
 
 function getFile(response, request, query) {
-  db.getFile(response, query.id, sendFile);
+  db.getFile(response, query.id, onFileRequested);
 }
 
-function sendFile(response, file) {
+function onFileRequested(response, file) {
   console.log('Sending file ' + file.path);
   fs.createReadStream(file.path).pipe(response);
 }
@@ -55,7 +55,7 @@ function deleteFile(response, request, query) {
 
 function onDeleteFile(response, path) {
   console.log('Deleting file ' + path + ' from filesystem...');
-  fs.unlink(path, function (file) {});
+  fs.unlink(path);
   response.writeHead(302, {'Location': '/'});
   response.end();
 }
