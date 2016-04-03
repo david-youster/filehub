@@ -1,6 +1,6 @@
 const mongo = require('mongodb');
 
-const connectionURL = "mongodb://localhost:27017/localex";
+const connectionURL = "mongodb://localhost:27017/filehub";
 
 const client = mongo.MongoClient;
 
