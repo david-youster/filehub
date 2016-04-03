@@ -1,3 +1,12 @@
+/**
+* FileHub
+*
+* Copyright (c) 2016 David Youster
+*
+* Made available under the terms of the MIT license. See LICENSE.txt for more
+* information.
+*/
+
 const http = require('http');
 const url = require('url');
 const os = require('os');
