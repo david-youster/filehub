@@ -15,9 +15,13 @@ const client = mongo.MongoClient;
 
 function saveUploadData(uploadData) {
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').insert(uploadData);
-    db.close();
+    onInsert(error, db, uploadData);
   }); 
+}
+
+function onInsert(error, db, data) {
+  db.collection('uploads').insert(data);
+  db.close();
 }
 
 function getUploads(response, onRender) {
@@ -66,16 +70,20 @@ function deleteFile(response, fileID, onDeleteFile) {
   const mongoID = new mongo.ObjectID(fileID);
   client.connect(connectionURL, function (error, db) {
     db.collection('uploads').findOne({_id: mongoID}, function (error, record) {
-      if (record) {
-        onDeleteFile(response, record.path);
-      }
+      onFileForDeletion(error, record, response, onDeleteFile);
     });
   });
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').deleteOne({_id: mongoID}, function(e, r) {
-      console.log('Deleting Mongo record for file ' + fileID);
-    });
+    db.collection('uploads').deleteOne({_id: mongoID});
   });
+}
+
+function onFileForDeletion(error, record, response, onDeleteFile) {
+  if (error) {
+    console.error(error);
+  } else if (record) {
+    onDeleteFile(response, record.path);
+  }
 }
 
 module.exports.saveUploadData = saveUploadData;
