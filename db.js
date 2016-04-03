@@ -74,14 +74,14 @@ function onFindUpload(error, record, response, onFile) {
 }
 
 function deleteFile(response, fileID, onDeleteFile) {
-  const mongoID = new mongo.ObjectID(fileID);
+  const query = {_id: new mongo.ObjectID(fileID)}
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').findOne({_id: mongoID}, function (error, record) {
+    db.collection('uploads').findOne(query, function (error, record) {
       onFileForDeletion(error, record, response, onDeleteFile);
     });
   });
   client.connect(connectionURL, function (error, db) {
-    db.collection('uploads').deleteOne({_id: mongoID});
+    db.collection('uploads').deleteOne(query);
   });
 }
 
