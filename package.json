@@ -1,6 +1,6 @@
 {
   "name": "localex",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "File transfer over local networks.",
   "main": "main.js",
   "private": true,
