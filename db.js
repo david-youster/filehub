@@ -20,8 +20,12 @@ function saveUploadData(uploadData) {
 }
 
 function onInsert(error, db, data) {
-  db.collection('uploads').insert(data);
-  db.close();
+  if (error) {
+    console.error(error);
+  } else {
+    db.collection('uploads').insert(data);
+    db.close();
+  }
 }
 
 function getUploads(response, onRender) {
@@ -33,8 +37,12 @@ function getUploads(response, onRender) {
 }
 
 function onUploadsArray(error, uploads, response, onRender) {
-  uploads = uploads.map(extractDataFromDBRecord);
-  onRender(response, {uploads: uploads});
+  if (error) {
+    console.error(error);
+  } else {
+    uploads = uploads.map(extractDataFromDBRecord);
+    onRender(response, {uploads: uploads});
+  }
 }
 
 function extractDataFromDBRecord(record) {
@@ -59,8 +67,7 @@ function onFindUpload(error, record, response, onFile) {
     console.error(error);
     response.writeHead(404, {'Content-Type': 'text/plain'});
     response.end('404 File not found.');
-  }
-  if (record) {
+  } else if (record) {
     console.log('Retrieving: ' + record._id);
     onFile(response, record);
   }
