@@ -4,5 +4,4 @@
 - Documentation
 - Auto-update on upload/delete
 - Favicon
-- Tidy up callback naming
 - Flatten out callbacks as much as possible
