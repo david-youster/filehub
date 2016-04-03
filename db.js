@@ -38,12 +38,12 @@ function getFile(response, fileID, onFile) {
     db.collection('uploads').findOne(query, function (error, record) {
       onFindUpload(error, record, response, onFile);
     });
-    db.close();
   });
 }
 
 function onFindUpload(error, record, response, onFile) {
   if (error) {
+    console.error(error);
     response.writeHead(404, {'Content-Type': 'text/plain'});
     response.end('404 File not found.');
   }
