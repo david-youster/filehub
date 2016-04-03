@@ -9,7 +9,6 @@
 
 const swig = require('swig');
 const formidable = require('formidable');
-const util = require('util');
 const fs = require('fs');
 const db = require('./db');
 
@@ -38,7 +37,6 @@ function onUpload(error, fields, files) {
     return;
   }
   const data = extractFileDataForDB(files.file);
-  console.log(util.inspect(fields));
   db.saveUploadData(data);
 }
 
