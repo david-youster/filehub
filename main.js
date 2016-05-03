@@ -7,6 +7,11 @@
 * information.
 */
 
+const fs = require('fs');
 const server = require('./server');
+
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads');
+}
 
 server.startServing();
