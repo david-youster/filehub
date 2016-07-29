@@ -37,6 +37,7 @@ function onUpload(error, fields, files) {
     return;
   }
   const data = extractFileDataForDB(files.file);
+  data.label = fields.label;
   db.saveUploadData(data);
 }
 

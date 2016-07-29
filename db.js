@@ -16,7 +16,7 @@ const client = mongo.MongoClient;
 function saveUploadData(uploadData) {
   client.connect(connectionURL, function (error, db) {
     onInsert(error, db, uploadData);
-  }); 
+  });
 }
 
 function onInsert(error, db, data) {
@@ -49,7 +49,8 @@ function extractDataFromDBRecord(record) {
   return {
     id: record._id.toString(),
     name: record.name,
-    path: record.path
+    path: record.path,
+    label: record.label
   };
 }
 
